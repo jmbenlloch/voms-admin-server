@@ -37,3 +37,8 @@
 <div class="certIssuer"><voms:formatDN
   dn="${requesterInfo.certificateIssuer}"
   fields="CN" /></div>
+ 
+<div class="email">
+  <a href="mailto:<${requesterInfo.emailAddress}>">
+  ${requesterInfo.emailAddress}</a></div>
+
