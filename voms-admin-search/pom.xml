@@ -43,15 +43,38 @@
       <artifactId>junit</artifactId>
       <scope>test</scope>
     </dependency>
-    
+
     <dependency>
       <groupId>org.parboiled</groupId>
       <artifactId>parboiled-java</artifactId>
     </dependency>
   </dependencies>
-  
+
   <build>
     <plugins>
+      <plugin>
+        <groupId>com.mycila</groupId>
+        <artifactId>license-maven-plugin</artifactId>
+        <configuration>
+          <header>${project.parent.basedir}/license/license.txt</header>
+          <excludes>
+            <exclude>**/rebel.xml</exclude>
+            <exclude>bin/**</exclude>
+            <exclude>**/*.gitignore</exclude>
+          </excludes>
+          <useDefaultExcludes>true</useDefaultExcludes>
+        </configuration>
+        <executions>
+          <execution>
+            <id>check-headers</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
@@ -63,7 +86,7 @@
               <goal>shade</goal>
             </goals>
             <configuration>
-              <!-- 
+              <!--
               <artifactSet>
                <excludes>
                 <exclude>junit:junit</exclude>
@@ -82,6 +105,6 @@
         </executions>
       </plugin>
     </plugins>
-  
+
   </build>
 </project>
