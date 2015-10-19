@@ -62,3 +62,6 @@ adminserver:
     ENABLE_JREBEL: y
     ENABLE_JMX: y
     VOMS_DEBUG: y
+    # HIBERNATE_LOG_LEVEL: trace
+    # VOMS_SHOW_SQL: y
+    # VOMS_DISABLE_BACKGROUND_TASKS: y
