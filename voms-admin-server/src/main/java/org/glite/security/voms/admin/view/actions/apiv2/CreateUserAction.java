@@ -21,7 +21,7 @@ import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 import org.apache.struts2.json.annotations.JSON;
-import org.glite.security.voms.admin.apiv2.VOMSUserJSON;
+import org.glite.security.voms.admin.apiv2.VOMSUserTO;
 import org.glite.security.voms.admin.operations.users.CreateUserOperation;
 import org.glite.security.voms.admin.persistence.model.VOMSUser;
 import org.glite.security.voms.admin.view.actions.BaseAction;
@@ -42,7 +42,7 @@ public class CreateUserAction extends BaseAction implements ValidationAware {
 	 */
   private static final long serialVersionUID = 1L;
 
-  VOMSUserJSON user;
+  VOMSUserTO user;
   String certificateSubject;
   String caSubject;
 
@@ -66,12 +66,12 @@ public class CreateUserAction extends BaseAction implements ValidationAware {
   }
 
   @VisitorFieldValidator(appendPrefix = true, message = "Invalid input:  ")
-  public VOMSUserJSON getUser() {
+  public VOMSUserTO getUser() {
 
     return user;
   }
 
-  public void setUser(VOMSUserJSON user) {
+  public void setUser(VOMSUserTO user) {
 
     this.user = user;
   }

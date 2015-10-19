@@ -33,7 +33,6 @@ import org.glite.security.voms.admin.persistence.dao.generic.TaskTypeDAO;
 import org.glite.security.voms.admin.persistence.dao.generic.UserDAO;
 import org.glite.security.voms.admin.persistence.model.AUPVersion;
 import org.glite.security.voms.admin.persistence.model.VOMSGroup;
-import org.glite.security.voms.admin.persistence.model.VOMSUser;
 import org.glite.security.voms.admin.persistence.model.audit.AuditEvent;
 import org.glite.security.voms.admin.persistence.model.request.RequesterInfo;
 import org.glite.security.voms.admin.persistence.model.task.LogRecord;
@@ -73,10 +72,6 @@ public class HibernateDAOFactory extends DAOFactory {
 
   public static class GroupDAOHibernate extends
     NamedEntityHibernateDAO<VOMSGroup, Long> implements GroupDAO {
-  }
-
-  public static class UserDAOHibernate extends
-    NamedEntityHibernateDAO<VOMSUser, Long> implements UserDAO {
   }
 
   public static class RequesterInfoDAOHibernate extends
@@ -168,6 +163,7 @@ public class HibernateDAOFactory extends DAOFactory {
     return (PeriodicNotificationsDAO) instantiateDAO(PeriodicNotificationDAOHibernate.class);
   }
 
+  @SuppressWarnings("rawtypes")
   private GenericHibernateDAO instantiateDAO(Class daoClass) {
 
     try {

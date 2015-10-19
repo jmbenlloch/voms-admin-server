@@ -16,7 +16,6 @@
 package org.glite.security.voms.admin.apiv2;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -32,12 +31,7 @@ import com.opensymphony.xwork2.validator.annotations.RegexFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 import com.opensymphony.xwork2.validator.annotations.ValidatorType;
 
-public class VOMSUserJSON {
-
-  /**
-	 * 
-	 */
-  private static final long serialVersionUID = 1L;
+public class VOMSUserTO {
 
   Long id;
 
@@ -63,15 +57,15 @@ public class VOMSUserJSON {
 
   String suspensionReason;
 
-  List<CertificateJSON> certificates;
+  List<CertificateTO> certificates;
 
   List<String> fqans;
 
-  List<AttributeJSON> attributes;
+  List<AttributeTO> attributes;
 
-  List<AUPAcceptanceRecordJSON> aupAcceptanceRecords;
+  List<AUPAcceptanceRecordTO> aupAcceptanceRecords;
 
-  SignAUPTaskJSON pendingSignAUPTask;
+  SignAUPTaskTO pendingSignAUPTask;
 
   public Long getId() {
 
@@ -225,32 +219,32 @@ public class VOMSUserJSON {
     this.suspensionReason = suspensionReason;
   }
 
-  public List<CertificateJSON> getCertificates() {
+  public List<CertificateTO> getCertificates() {
 
     return certificates;
   }
 
-  public void setCertificates(List<CertificateJSON> certificates) {
+  public void setCertificates(List<CertificateTO> certificates) {
 
     this.certificates = certificates;
   }
 
-  public List<AttributeJSON> getAttributes() {
+  public List<AttributeTO> getAttributes() {
 
     return attributes;
   }
 
-  public void setAttributes(List<AttributeJSON> attributes) {
+  public void setAttributes(List<AttributeTO> attributes) {
 
     this.attributes = attributes;
   }
 
   public void attributesFrom(VOMSUser user) {
 
-    this.attributes = new ArrayList<AttributeJSON>();
+    this.attributes = new ArrayList<AttributeTO>();
 
     for (VOMSUserAttribute attr : user.getAttributes()) {
-      attributes.add(AttributeJSON.fromVOMSUserAttribute(attr));
+      attributes.add(AttributeTO.fromVOMSUserAttribute(attr));
     }
 
   }
@@ -272,15 +266,15 @@ public class VOMSUserJSON {
     setCreationTime(user.getCreationTime());
     setEndTime(user.getEndTime());
 
-    List<AUPAcceptanceRecordJSON> aupRecords = new ArrayList<AUPAcceptanceRecordJSON>();
+    List<AUPAcceptanceRecordTO> aupRecords = new ArrayList<AUPAcceptanceRecordTO>();
 
     for (AUPAcceptanceRecord rec : user.getAupAcceptanceRecords()) {
-      aupRecords.add(AUPAcceptanceRecordJSON.from(rec));
+      aupRecords.add(AUPAcceptanceRecordTO.from(rec));
     }
 
     setAupAcceptanceRecords(aupRecords);
 
-    setPendingSignAUPTask(SignAUPTaskJSON.from(user.getPendingSignAUPTask()));
+    setPendingSignAUPTask(SignAUPTaskTO.from(user.getPendingSignAUPTask()));
 
   }
 
@@ -295,23 +289,23 @@ public class VOMSUserJSON {
     setFqans(fqans);
   }
 
-  public List<AUPAcceptanceRecordJSON> getAupAcceptanceRecords() {
+  public List<AUPAcceptanceRecordTO> getAupAcceptanceRecords() {
 
     return aupAcceptanceRecords;
   }
 
   public void setAupAcceptanceRecords(
-    List<AUPAcceptanceRecordJSON> aupAcceptanceRecords) {
+    List<AUPAcceptanceRecordTO> aupAcceptanceRecords) {
 
     this.aupAcceptanceRecords = aupAcceptanceRecords;
   }
 
-  public SignAUPTaskJSON getPendingSignAUPTask() {
+  public SignAUPTaskTO getPendingSignAUPTask() {
 
     return pendingSignAUPTask;
   }
 
-  public void setPendingSignAUPTask(SignAUPTaskJSON pendingSignAUPTask) {
+  public void setPendingSignAUPTask(SignAUPTaskTO pendingSignAUPTask) {
 
     this.pendingSignAUPTask = pendingSignAUPTask;
   }
@@ -326,14 +320,14 @@ public class VOMSUserJSON {
     this.fqans = fqans;
   }
 
-  public static VOMSUserJSON fromVOMSUser(VOMSUser user) {
+  public static VOMSUserTO fromVOMSUser(VOMSUser user) {
 
-    VOMSUserJSON u = new VOMSUserJSON();
+    VOMSUserTO u = new VOMSUserTO();
     u.setId(user.getId());
 
-    List<CertificateJSON> certs = new ArrayList<CertificateJSON>();
+    List<CertificateTO> certs = new ArrayList<CertificateTO>();
     for (Certificate c : user.getCertificates())
-      certs.add(CertificateJSON.fromCertificate(c));
+      certs.add(CertificateTO.fromCertificate(c));
 
     u.setCertificates(certs);
 

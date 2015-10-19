@@ -40,7 +40,7 @@ Commands:
 """
 
 parser = OptionParser(usage)
-commands = ["deploy","undeploy","upgrade","check-connectivity","grant-read-only-access", "add-admin", "remove-admin"]
+commands = ["hql", "deploy","undeploy","upgrade","check-connectivity","grant-read-only-access", "add-admin", "remove-admin"]
 
 def setup_cl_options():
     parser.add_option("--vo", dest="vo", help="the VO for which database operations are performed", metavar="VO")
@@ -72,6 +72,15 @@ def do_basic_command(options,command):
                                                       VOMSDefaults.schema_deployer_class,
                                                       command,
                                                       options.vo)
+    status = os.system(cmd)
+    sys.exit(os.WEXITSTATUS(status))
+    
+def do_hql(options,command, query):
+    cmd = "%s java -cp %s %s --command hql --vo %s '%s'" % (get_oracle_env(),
+                                                         build_classpath(),
+                                                         VOMSDefaults.schema_deployer_class,
+                                                         options.vo,
+                                                         query)
     status = os.system(cmd)
     sys.exit(os.WEXITSTATUS(status))
 
@@ -127,8 +136,8 @@ def do_remove_admin(options):
     sys.exit(os.WEXITSTATUS(status))
 
 def check_args_and_options(options,args):
-    if len(args) != 1 or args[0] not in commands:
-        error_and_exit("Please specify a single command among the following:\n\t%s" % "\n\t".join(commands))
+    if args[0] not in commands:
+        error_and_exit("Please specify a command among the following:\n\t%s" % "\n\t".join(commands))
     
     if not options.vo:
         error_and_exit("Please specify a VO with the --vo option.")
@@ -155,6 +164,8 @@ def main():
         do_add_admin(options)
     elif command == "remove-admin":
         do_remove_admin(options)
+    elif command == "hql":
+        do_hql(options, command, args[1])
     else:
         do_basic_command(options, command)
     

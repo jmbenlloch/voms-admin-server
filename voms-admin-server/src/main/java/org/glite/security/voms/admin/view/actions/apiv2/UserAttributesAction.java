@@ -22,7 +22,7 @@ import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 import org.apache.struts2.json.annotations.JSON;
 import org.glite.security.voms.admin.apiv2.JSONSerializer;
-import org.glite.security.voms.admin.apiv2.VOMSUserJSON;
+import org.glite.security.voms.admin.apiv2.VOMSUserTO;
 import org.glite.security.voms.admin.operations.users.FindUsersWithAttribute;
 import org.glite.security.voms.admin.operations.users.FindUsersWithAttributeValue;
 import org.glite.security.voms.admin.persistence.model.VOMSUser;
@@ -44,7 +44,7 @@ public class UserAttributesAction extends BaseAction {
   String attributeName;
   String attributeValue;
 
-  List<VOMSUserJSON> userWithAttributes;
+  List<VOMSUserTO> userWithAttributes;
   
 
   @RequiredStringValidator(type = ValidatorType.FIELD,
@@ -75,7 +75,7 @@ public class UserAttributesAction extends BaseAction {
     this.attributeValue = attributeValue;
   }
 
-  public List<VOMSUserJSON> getUserWithAttributes() {
+  public List<VOMSUserTO> getUserWithAttributes() {
 
     return userWithAttributes;
   }

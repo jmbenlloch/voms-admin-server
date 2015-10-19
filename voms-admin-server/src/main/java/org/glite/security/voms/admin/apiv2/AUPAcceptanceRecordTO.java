@@ -19,13 +19,13 @@ import java.util.Date;
 
 import org.glite.security.voms.admin.persistence.model.AUPAcceptanceRecord;
 
-public class AUPAcceptanceRecordJSON {
+public class AUPAcceptanceRecordTO {
 
   String aupVersion;
   Date lastAcceptanceDate;
   long daysBeforeExpiration;
 
-  public AUPAcceptanceRecordJSON() {
+  public AUPAcceptanceRecordTO() {
 
   }
 
@@ -59,9 +59,9 @@ public class AUPAcceptanceRecordJSON {
     this.daysBeforeExpiration = daysBeforeExpiration;
   }
 
-  public static AUPAcceptanceRecordJSON from(AUPAcceptanceRecord rec) {
+  public static AUPAcceptanceRecordTO from(AUPAcceptanceRecord rec) {
 
-    AUPAcceptanceRecordJSON r = new AUPAcceptanceRecordJSON();
+    AUPAcceptanceRecordTO r = new AUPAcceptanceRecordTO();
 
     r.setAupVersion(rec.getAupVersion().getVersion());
     if (rec.getDaysBeforeExpiration() < 0){

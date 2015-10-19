@@ -63,6 +63,7 @@ import org.glite.security.voms.admin.persistence.model.VOMSGroup;
 import org.glite.security.voms.admin.persistence.model.VOMSRole;
 import org.glite.security.voms.admin.util.SysconfigUtil;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -109,6 +110,8 @@ public class SchemaDeployer {
   Configuration hibernateConfiguration = null;
 
   Dialect dialect;
+  
+  String query;
 
   AuditLogHelper auditLogHelper = new AuditLogHelper(
     CurrentAdminPrincipal.LOCAL_DB_PRINCIPAL);
@@ -232,6 +235,8 @@ public class SchemaDeployer {
       checkDatabaseExistence();
     } else if (command.equals("grant-read-only-access")) {
       doGrantROAccess();
+    } else if (command.equals("hql")) {
+      doHQLQuery();
     } else {
 
       System.err.println("Unkown command specified: " + command);
@@ -481,7 +486,8 @@ public class SchemaDeployer {
 
     if (existingDB == 3) {
 
-      String[] versionsToBeUpgraded = { "3.2.0", "3.3.0", "3.3.1", "3.3.2", "3.3.3" };
+      String[] versionsToBeUpgraded = { "3.2.0", "3.3.0", "3.3.1", "3.3.2",
+        "3.3.3" };
       String adminVersion = VOMSVersionDAO.instance().getVersion()
         .getAdminVersion().trim();
 
@@ -517,7 +523,7 @@ public class SchemaDeployer {
         List<String> upgradeScript = loadUpgradeScriptToV4();
 
         ArrayList<Exception> exceptions = new ArrayList<Exception>();
-        
+
         HibernateFactory.beginTransaction();
         Statement statement = HibernateFactory.getSession().connection()
           .createStatement();
@@ -858,6 +864,25 @@ public class SchemaDeployer {
 
   }
 
+  private void doHQLQuery() {
+
+    checkVoExistence();
+
+    Session s = HibernateFactory.getSession();
+    HibernateFactory.beginTransaction();
+
+    Query q = s.createQuery(query);
+
+    List results = q.list();
+
+    for (Object o : results) {
+      System.out.println(o);
+    }
+
+    HibernateFactory.commitTransaction();
+
+  }
+
   private void doDeploy() {
 
     checkVoExistence();
@@ -894,10 +919,10 @@ public class SchemaDeployer {
       HibernateFactory.getSession());
 
     createIndexTask.run();
-    
-    CreateAttributeValueIndex avIndexTask = new 
-      CreateAttributeValueIndex(HibernateFactory.getSession());
-    
+
+    CreateAttributeValueIndex avIndexTask = new CreateAttributeValueIndex(
+      HibernateFactory.getSession());
+
     avIndexTask.run();
 
     UpdateCATask caTask = new UpdateCATask();
@@ -988,7 +1013,8 @@ public class SchemaDeployer {
         && !command.equals("add-admin") && !command.equals("remove-admin")
         && !command.equals("undeploy") && !command.equals("upgrade-script")
         && !command.equals("check-connectivity")
-        && !command.equals("grant-read-only-access")) {
+        && !command.equals("grant-read-only-access")
+        && !command.equals("hql")) {
 
         System.err.println("Unknown command specified: " + command);
         printHelpMessageAndExit(2);
@@ -1010,6 +1036,11 @@ public class SchemaDeployer {
 
       if (line.hasOption("email"))
         adminEmailAddress = line.getOptionValue("email");
+      
+      if (line.getArgs().length > 0){
+        query = line.getArgs()[0];
+      }
+      
 
     } catch (ParseException e) {
 

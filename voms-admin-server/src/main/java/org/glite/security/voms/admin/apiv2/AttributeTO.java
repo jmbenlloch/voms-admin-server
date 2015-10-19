@@ -17,12 +17,12 @@ package org.glite.security.voms.admin.apiv2;
 
 import org.glite.security.voms.admin.persistence.model.VOMSUserAttribute;
 
-public class AttributeJSON {
+public class AttributeTO {
 
   String name;
   String value;
 
-  public AttributeJSON() {
+  public AttributeTO() {
 
   }
 
@@ -46,13 +46,13 @@ public class AttributeJSON {
     this.value = value;
   }
 
-  public static AttributeJSON fromVOMSUserAttribute(VOMSUserAttribute attr) {
+  public static AttributeTO fromVOMSUserAttribute(VOMSUserAttribute attr) {
 
     if (attr == null) {
       return null;
     }
 
-    AttributeJSON a = new AttributeJSON();
+    AttributeTO a = new AttributeTO();
     a.setName(attr.getName());
     a.setValue(attr.getValue());
 

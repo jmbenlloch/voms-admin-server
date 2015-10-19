@@ -17,7 +17,7 @@ package org.glite.security.voms.admin.apiv2;
 
 import org.glite.security.voms.admin.persistence.model.Certificate;
 
-public class CertificateJSON {
+public class CertificateTO {
 
   String subjectString;
   String issuerString;
@@ -65,9 +65,9 @@ public class CertificateJSON {
     this.issuerString = issuerString;
   }
 
-  public static CertificateJSON fromCertificate(Certificate cert) {
+  public static CertificateTO fromCertificate(Certificate cert) {
 
-    CertificateJSON c = new CertificateJSON();
+    CertificateTO c = new CertificateTO();
     c.setSubjectString(cert.getSubjectString());
     c.setIssuerString(cert.getCa().getSubjectString());
     c.setSuspended(cert.isSuspended());

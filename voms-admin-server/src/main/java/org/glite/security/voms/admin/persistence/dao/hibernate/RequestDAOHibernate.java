@@ -33,9 +33,9 @@ import org.glite.security.voms.admin.persistence.model.request.GroupMembershipRe
 import org.glite.security.voms.admin.persistence.model.request.MembershipRemovalRequest;
 import org.glite.security.voms.admin.persistence.model.request.NewVOMembershipRequest;
 import org.glite.security.voms.admin.persistence.model.request.Request;
+import org.glite.security.voms.admin.persistence.model.request.Request.STATUS;
 import org.glite.security.voms.admin.persistence.model.request.RequesterInfo;
 import org.glite.security.voms.admin.persistence.model.request.RoleMembershipRequest;
-import org.glite.security.voms.admin.persistence.model.request.Request.STATUS;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Order;

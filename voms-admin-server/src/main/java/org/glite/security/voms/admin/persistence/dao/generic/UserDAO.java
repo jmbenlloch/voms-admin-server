@@ -15,8 +15,14 @@
  */
 package org.glite.security.voms.admin.persistence.dao.generic;
 
+import it.infn.voms.admin.search.parser.node.QNode;
+
+import java.util.List;
+
 import org.glite.security.voms.admin.persistence.model.VOMSUser;
 
 public interface UserDAO extends NamedEntityDAO<VOMSUser, Long> {
+  
+  public List<VOMSUser> searchUsers(QNode query, int firstResult, int maxResults);
 
 }

@@ -24,7 +24,7 @@ import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 import org.apache.struts2.json.annotations.JSON;
 import org.glite.security.voms.admin.apiv2.JSONSerializer;
-import org.glite.security.voms.admin.apiv2.VOMSUserJSON;
+import org.glite.security.voms.admin.apiv2.VOMSUserTO;
 import org.glite.security.voms.admin.operations.users.RestoreUserOperation;
 import org.glite.security.voms.admin.persistence.dao.VOMSUserDAO;
 import org.glite.security.voms.admin.persistence.model.VOMSUser;
@@ -39,12 +39,12 @@ public class RestoreAllSuspendedUsersAction extends BaseAction {
 	 */
   private static final long serialVersionUID = 1L;
 
-  List<VOMSUserJSON> restoredUsers;
+  List<VOMSUserTO> restoredUsers;
 
   @Override
   public String execute() throws Exception {
 
-    restoredUsers = new ArrayList<VOMSUserJSON>();
+    restoredUsers = new ArrayList<VOMSUserTO>();
 
     List<VOMSUser> suspendedUsers = VOMSUserDAO.instance().findSuspendedUsers();
 
@@ -64,7 +64,7 @@ public class RestoreAllSuspendedUsersAction extends BaseAction {
   }
 
   @JSON(serialize = true)
-  public List<VOMSUserJSON> getRestoredUsers() {
+  public List<VOMSUserTO> getRestoredUsers() {
 
     return restoredUsers;
   }

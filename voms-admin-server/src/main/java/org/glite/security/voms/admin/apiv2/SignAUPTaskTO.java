@@ -19,13 +19,13 @@ import java.util.Date;
 
 import org.glite.security.voms.admin.persistence.model.task.SignAUPTask;
 
-public class SignAUPTaskJSON {
+public class SignAUPTaskTO {
 
   Date creationDate;
   Date expirationDate;
   Date lastNotificationTime;
 
-  public SignAUPTaskJSON() {
+  public SignAUPTaskTO() {
 
   }
 
@@ -59,13 +59,13 @@ public class SignAUPTaskJSON {
     this.lastNotificationTime = lastNotificationTime;
   }
 
-  public static SignAUPTaskJSON from(SignAUPTask t) {
+  public static SignAUPTaskTO from(SignAUPTask t) {
 
     if (t == null) {
       return null;
     }
     
-    SignAUPTaskJSON task = new SignAUPTaskJSON();
+    SignAUPTaskTO task = new SignAUPTaskTO();
     task.setCreationDate(t.getCreationDate());
     task.setExpirationDate(t.getExpiryDate());
     task.setLastNotificationTime(t.getLastNotificationTime());

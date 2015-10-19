@@ -35,13 +35,13 @@ public class JSONSerializer {
   private static final VOMSPermission PI_READ_PERMISSIONS = VOMSPermission
     .getEmptyPermissions().setPersonalInfoReadPermission();
 
-  public static VOMSUserJSON serialize(VOMSUser user) {
+  public static VOMSUserTO serialize(VOMSUser user) {
 
     final VOMSContext voContext = VOMSContext.getVoContext();
 
     final CurrentAdmin admin = CurrentAdmin.instance();
 
-    VOMSUserJSON json = VOMSUserJSON.fromVOMSUser(user);
+    VOMSUserTO json = VOMSUserTO.fromVOMSUser(user);
 
     if (admin.is(user)) {
 
@@ -70,9 +70,9 @@ public class JSONSerializer {
 
   }
 
-  public static List<VOMSUserJSON> serialize(List<VOMSUser> users) {
+  public static List<VOMSUserTO> serialize(List<VOMSUser> users) {
 
-    List<VOMSUserJSON> retval = new ArrayList<VOMSUserJSON>();
+    List<VOMSUserTO> retval = new ArrayList<VOMSUserTO>();
 
     for (VOMSUser u : users) {
       retval.add(serialize(u));

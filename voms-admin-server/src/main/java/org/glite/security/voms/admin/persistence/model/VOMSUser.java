@@ -48,7 +48,7 @@ import javax.persistence.Transient;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.glite.security.voms.User;
-import org.glite.security.voms.admin.apiv2.VOMSUserJSON;
+import org.glite.security.voms.admin.apiv2.VOMSUserTO;
 import org.glite.security.voms.admin.error.IllegalStateException;
 import org.glite.security.voms.admin.error.NotFoundException;
 import org.glite.security.voms.admin.error.NullArgumentException;
@@ -1265,7 +1265,7 @@ public class VOMSUser implements Serializable, Comparable<VOMSUser> {
     return -1L;
   }
 
-  public static VOMSUser fromVOMSUserJSON(VOMSUserJSON user) {
+  public static VOMSUser fromVOMSUserJSON(VOMSUserTO user) {
 
     VOMSUser u = new VOMSUser();
 

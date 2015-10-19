@@ -23,7 +23,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.lang.Validate;
-import org.glite.security.voms.admin.apiv2.VOMSUserJSON;
+import org.glite.security.voms.admin.apiv2.VOMSUserTO;
 import org.glite.security.voms.admin.configuration.VOMSConfiguration;
 import org.glite.security.voms.admin.configuration.VOMSConfigurationConstants;
 import org.glite.security.voms.admin.error.NotFoundException;
@@ -516,7 +516,7 @@ public class VOMSUserDAO {
     return u;
   }
 
-  public VOMSUser create(VOMSUserJSON usr, String certificateSubject,
+  public VOMSUser create(VOMSUserTO usr, String certificateSubject,
     String caSubject) {
 
     VOMSUser u = VOMSUser.fromVOMSUserJSON(usr);
@@ -1223,10 +1223,6 @@ public class VOMSUserDAO {
 
     return crit.list();
 
-  }
-  
-  
-  
-  
+  } 
 
 }

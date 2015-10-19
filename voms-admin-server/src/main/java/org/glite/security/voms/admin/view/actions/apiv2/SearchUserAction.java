@@ -15,66 +15,58 @@
  */
 package org.glite.security.voms.admin.view.actions.apiv2;
 
+import java.util.List;
+
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 import org.glite.security.voms.admin.apiv2.JSONSerializer;
-import org.glite.security.voms.admin.apiv2.VOMSUserTO;
-import org.glite.security.voms.admin.operations.users.FindUserOperation;
+import org.glite.security.voms.admin.apiv2.UserSearchTO;
+import org.glite.security.voms.admin.operations.users.DynaSearchOperation;
 import org.glite.security.voms.admin.persistence.model.VOMSUser;
 import org.glite.security.voms.admin.view.actions.BaseAction;
 
+import com.opensymphony.xwork2.Preparable;
+import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
+
 @ParentPackage("json")
 @Results({ @Result(name = BaseAction.SUCCESS, type = "json") })
-public class UserInfoAction extends RestUserAction {
+public class SearchUserAction extends BaseAction implements Preparable {
 
   /**
    * 
    */
   private static final long serialVersionUID = 1L;
+  UserSearchTO searchData;
 
-  VOMSUserTO userInfo;
+  @VisitorFieldValidator(appendPrefix = true, message = "Invalid input:  ")
+  public UserSearchTO getSearchData() {
+
+    return searchData;
+  }
+
+  public void setSearchData(UserSearchTO searchData) {
+
+    this.searchData = searchData;
+  }
 
   @Override
   public void prepare() throws Exception {
 
-    if (getModel() == null) {
-
-      if (userId != null) {
-
-        user = (VOMSUser) FindUserOperation.instance(userId).execute();
-
-        if (user != null) {
-          return;
-        } else {
-          addActionError("No user found for the provided user id");
-        }
-      }
-
-      if ((certificateSubject == null) || (caSubject == null)) {
-        return;
-      }
-
-      user = (VOMSUser) FindUserOperation.instance(certificateSubject,
-        caSubject).execute();
-
-      if (user == null) {
-        addActionError("No user found for the provided dn,ca couple");
-      }
+    if (searchData == null) {
+      addActionError("Please provide a searchData structure");
     }
+
   }
 
   @Override
   public String execute() throws Exception {
 
-    userInfo = JSONSerializer.serialize(getModel());
+    DynaSearchOperation op = new DynaSearchOperation(searchData);
+    List<VOMSUser> matchedUsers = op.execute();
+    searchData.setResults(JSONSerializer.serialize(matchedUsers));
 
-    return SUCCESS;
-  }
-
-  public VOMSUserTO getUserInfo() {
-
-    return userInfo;
+    return BaseAction.SUCCESS;
   }
 
 }

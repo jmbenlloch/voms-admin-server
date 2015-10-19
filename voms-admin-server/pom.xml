@@ -166,6 +166,22 @@
 
     <dependency>
       <groupId>org.italiangrid</groupId>
+      <artifactId>voms-admin-search</artifactId>
+      <version>${project.version}</version>
+      
+      <exclusions>
+        <exclusion>
+          <groupId>org.parboiled</groupId>
+          <artifactId>parboiled-java</artifactId>
+        </exclusion>
+      </exclusions>
+      
+    </dependency>
+    
+    
+    
+    <dependency>
+      <groupId>org.italiangrid</groupId>
       <artifactId>voms-admin-api</artifactId>
       <version>${project.version}</version>
     </dependency>

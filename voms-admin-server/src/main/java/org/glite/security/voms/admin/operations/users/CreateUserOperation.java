@@ -15,7 +15,7 @@
  */
 package org.glite.security.voms.admin.operations.users;
 
-import org.glite.security.voms.admin.apiv2.VOMSUserJSON;
+import org.glite.security.voms.admin.apiv2.VOMSUserTO;
 import org.glite.security.voms.admin.configuration.VOMSConfiguration;
 import org.glite.security.voms.admin.configuration.VOMSConfigurationConstants;
 import org.glite.security.voms.admin.event.EventManager;
@@ -59,7 +59,7 @@ public class CreateUserOperation extends BaseVomsOperation {
 
   }
 
-  private CreateUserOperation(VOMSUserJSON user, String certSubject,
+  private CreateUserOperation(VOMSUserTO user, String certSubject,
     String caSubject) {
 
     usr = VOMSUser.fromVOMSUserJSON(user);
@@ -98,7 +98,7 @@ public class CreateUserOperation extends BaseVomsOperation {
     return new CreateUserOperation(user, caString);
   }
 
-  public static CreateUserOperation instance(VOMSUserJSON user,
+  public static CreateUserOperation instance(VOMSUserTO user,
     String certificateSubject, String caString) {
 
     return new CreateUserOperation(user, certificateSubject, caString);
