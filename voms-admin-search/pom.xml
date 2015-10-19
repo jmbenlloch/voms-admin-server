@@ -1,0 +1,87 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.italiangrid</groupId>
+    <artifactId>voms-admin-parent</artifactId>
+    <version>3.4.0.rc0</version>
+  </parent>
+
+  <artifactId>voms-admin-search</artifactId>
+  <packaging>jar</packaging>
+
+  <name>VOMS Admin Search Utils</name>
+  <description>Utilities to enable dynamic search on VOMS Admin database.</description>
+
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <properties>
+  </properties>
+
+  <developers>
+    <developer>
+      <id>andreac</id>
+      <name>Andrea Ceccanti</name>
+      <email>andrea.ceccanti@cnaf.infn.it</email>
+      <organization>INFN CNAF</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+    </developer>
+  </developers>
+
+  <dependencies>
+   <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+    
+    <dependency>
+      <groupId>org.parboiled</groupId>
+      <artifactId>parboiled-java</artifactId>
+    </dependency>
+  </dependencies>
+  
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>2.4.1</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <!-- 
+              <artifactSet>
+               <excludes>
+                <exclude>junit:junit</exclude>
+                <exclude>org.hamcrest:hamcrest-core</exclude>
+               </excludes>
+              </artifactSet>
+               -->
+              <relocations>
+                <relocation>
+                  <pattern>org.objectweb</pattern>
+                  <shadedPattern>org.objectweb.shaded</shadedPattern>
+                </relocation>
+              </relocations>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  
+  </build>
+</project>
