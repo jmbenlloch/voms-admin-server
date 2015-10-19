@@ -136,6 +136,11 @@ public final class VOMSService {
 
     VOMSExecutorService es = VOMSExecutorService.instance();
 
+    if (System.getenv("VOMS_DISABLE_BACKGROUND_TASKS") != null) {
+      log.warn("VOMS_DISABLE_BACKGROUND_TASKS is on.");
+      return;
+    }
+
     VOMSConfiguration conf = VOMSConfiguration.instance();
     List<Integer> aupReminders = conf.getAUPReminderIntervals();
 
@@ -155,6 +160,8 @@ public final class VOMSService {
     es.startBackgroundTask(new UserStatsTask(),
       VOMSConfigurationConstants.MONITORING_USER_STATS_UPDATE_PERIOD,
       UserStatsTask.DEFAULT_PERIOD_IN_SECONDS);
+    
+    ValidationManager.instance().startMembershipChecker();
 
   }
 
@@ -268,15 +275,13 @@ public final class VOMSService {
 
     configureVelocity();
 
-    configureEventManager();
-
-    startBackgroundTasks();
+    configureEventManager();   
 
     bootstrapAttributeAuthorityServices();
 
     PluginManager.instance().configurePlugins();
 
-    ValidationManager.instance().startMembershipChecker();
+    startBackgroundTasks();
 
     log.info("VOMS-Admin started succesfully.");
   }
