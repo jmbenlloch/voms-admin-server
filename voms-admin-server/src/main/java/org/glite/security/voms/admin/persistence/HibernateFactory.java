@@ -67,10 +67,22 @@ public class HibernateFactory {
 
   }
   
+  private static synchronized void showSQLProperties(Properties props){
+    
+    if (System.getenv("VOMS_SHOW_SQL") != null){
+      log.info("VOMS_SHOW_SQL is ON, configuring hibernate to log SQL statements");
+      props.put("hibernate.show_sql", "true");
+      props.put("hibernate.format_sql", "true");
+      props.put("hibernate.use_sql_comments", "true");
+    }
+  }
+  
   public static synchronized void initialize(Properties databaseProperties) {
 
     Validate.notNull(databaseProperties);
 
+    showSQLProperties(databaseProperties);
+    
     if (sessionFactory != null) {
       throw new VOMSDatabaseException(
         "Hibernate session factory already initialized!");
