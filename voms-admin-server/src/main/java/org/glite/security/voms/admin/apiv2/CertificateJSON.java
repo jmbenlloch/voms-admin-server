@@ -20,6 +20,8 @@
 
 package org.glite.security.voms.admin.apiv2;
 
+import java.util.Date;
+
 import org.glite.security.voms.admin.persistence.model.Certificate;
 
 public class CertificateJSON {
@@ -30,6 +32,8 @@ public class CertificateJSON {
   Boolean suspended;
   String suspensionReason;
 
+  Date creationTime;
+  
   public Boolean getSuspended() {
 
     return suspended;
@@ -70,6 +74,15 @@ public class CertificateJSON {
     this.issuerString = issuerString;
   }
 
+  
+  public Date getCreationTime() {
+    return creationTime;
+  }
+
+  public void setCreationTime(Date creationTime) {
+    this.creationTime = creationTime;
+  }
+
   public static CertificateJSON fromCertificate(Certificate cert) {
 
     CertificateJSON c = new CertificateJSON();
@@ -77,6 +90,7 @@ public class CertificateJSON {
     c.setIssuerString(cert.getCa().getSubjectString());
     c.setSuspended(cert.isSuspended());
     c.setSuspensionReason(cert.getSuspensionReason());
+    c.setCreationTime(cert.getCreationTime());
 
     return c;
 

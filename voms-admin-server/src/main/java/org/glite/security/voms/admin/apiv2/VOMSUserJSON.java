@@ -245,9 +245,9 @@ public class VOMSUserJSON {
     u.setEndTime(user.getEndTime());
 
     List<CertificateJSON> certs = new ArrayList<CertificateJSON>();
-    for (Certificate c : user.getCertificates())
+    for (Certificate c : user.getCertificates()){
       certs.add(CertificateJSON.fromCertificate(c));
-
+    }
     u.setCertificates(certs);
     return u;
   }
