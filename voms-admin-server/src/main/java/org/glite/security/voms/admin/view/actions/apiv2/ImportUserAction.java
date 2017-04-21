@@ -25,7 +25,6 @@ import org.glite.security.voms.admin.apiv2.VOMSUserJSON;
 import org.glite.security.voms.admin.operations.users.ImportUserOperation;
 import org.glite.security.voms.admin.view.actions.BaseAction;
 
-import com.google.common.base.Strings;
 import com.opensymphony.xwork2.ModelDriven;
 
 @ParentPackage("json")
@@ -47,7 +46,7 @@ public class ImportUserAction extends BaseAction implements ModelDriven<VOMSUser
     if (Objects.isNull(user)){
       addFieldError("user", "user cannot be null");
     }
-    if (Strings.isNullOrEmpty(user.getEmailAddress())){
+    if (Objects.isNull(user.getEmailAddress()) || "".equals(user.getEmailAddress())){
       addFieldError("user.emailAddress", "emailAddress cannot be empty");
     }
     

@@ -1102,6 +1102,23 @@ public class VOMSUser implements Serializable, Comparable<VOMSUser> {
     return false;
 
   }
+  
+  
+  public SignAUPTask getPendingSignAUPTask() {
+    if (getTasks().isEmpty())
+      return null;
+
+    for (Task t : getTasks()) {
+      if (t instanceof SignAUPTask) {
+        SignAUPTask aupTask = (SignAUPTask) t;
+        if (!aupTask.getStatus().equals(TaskStatus.COMPLETED)){
+          return aupTask;
+        }
+      }
+    }
+    
+    return null;
+  }
 
   public SignAUPTask getPendingSignAUPTask(AUP aup) {
 

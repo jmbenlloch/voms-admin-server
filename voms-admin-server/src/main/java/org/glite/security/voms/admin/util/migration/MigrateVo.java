@@ -42,8 +42,6 @@ import org.apache.commons.httpclient.protocol.Protocol;
 import org.apache.commons.httpclient.protocol.ProtocolSocketFactory;
 import org.apache.struts2.json.JSONException;
 import org.apache.struts2.json.JSONPopulator;
-import org.apache.struts2.json.JSONReader;
-import org.apache.struts2.json.JSONWriter;
 import org.glite.security.voms.VOMSException;
 import org.glite.security.voms.admin.apiv2.CertificateJSON;
 import org.glite.security.voms.admin.apiv2.ListUserResultJSON;

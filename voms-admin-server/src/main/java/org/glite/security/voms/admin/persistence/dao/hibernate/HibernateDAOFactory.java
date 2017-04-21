@@ -62,10 +62,6 @@ public class HibernateDAOFactory extends DAOFactory {
   // methods.
   // If we use public static nested classes, we can centralize all of them in
   // one source file.
-  public static class AUPVersionDAOHibernate extends
-    GenericHibernateDAO<AUPVersion, Long> implements AUPVersionDAO {
-  }
-
   public static class GroupDAOHibernate extends
     NamedEntityHibernateDAO<VOMSGroup, Long> implements GroupDAO {
   }

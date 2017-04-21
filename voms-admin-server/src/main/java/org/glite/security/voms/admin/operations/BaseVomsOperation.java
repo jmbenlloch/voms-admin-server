@@ -25,8 +25,6 @@ import java.util.Map;
 
 import org.apache.commons.lang.builder.StandardToStringStyle;
 import org.apache.commons.lang.builder.ToStringBuilder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.glite.security.voms.admin.error.NullArgumentException;
 import org.glite.security.voms.admin.error.VOMSAuthorizationException;
 import org.glite.security.voms.admin.error.VOMSFatalException;
@@ -34,8 +32,10 @@ import org.glite.security.voms.admin.persistence.dao.VOMSGroupDAO;
 import org.glite.security.voms.admin.persistence.error.VOMSInconsistentDatabaseException;
 import org.glite.security.voms.admin.persistence.model.ACL;
 import org.glite.security.voms.admin.persistence.model.VOMSGroup;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public abstract class BaseVomsOperation implements VOMSOperation {
+public abstract class BaseVomsOperation<V> implements VOMSOperation<V> {
 
   static {
 
@@ -143,7 +143,7 @@ public abstract class BaseVomsOperation implements VOMSOperation {
     return AuthorizationResponse.permit();
   }
 
-  public final Object execute() {
+  public final V execute() {
 
     logOperation();
 
@@ -159,7 +159,7 @@ public abstract class BaseVomsOperation implements VOMSOperation {
 
   protected abstract void setupPermissions();
 
-  protected abstract Object doExecute();
+  protected abstract V doExecute();
 
   protected final void addPermissionsOnPath(VOMSGroup g, VOMSPermission p) {
 

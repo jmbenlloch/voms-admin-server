@@ -38,7 +38,7 @@ import org.glite.security.voms.admin.persistence.model.AUPVersion;
 import org.glite.security.voms.admin.persistence.model.Certificate;
 import org.glite.security.voms.admin.persistence.model.VOMSCA;
 import org.glite.security.voms.admin.persistence.model.VOMSUser;
-import org.glite.security.voms.admin.persistence.model.attribute.VOMSUserAttribute;
+import org.glite.security.voms.admin.persistence.model.VOMSUserAttribute;
 import org.glite.security.voms.admin.persistence.model.task.SignAUPTask;
 import org.glite.security.voms.admin.persistence.model.task.Task.TaskStatus;
 import org.glite.security.voms.admin.persistence.model.task.TaskType;
